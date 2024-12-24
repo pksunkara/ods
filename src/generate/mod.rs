@@ -33,7 +33,7 @@ impl Generate {
             None => self.schema.plan.join("ods"),
         };
 
-        create_dir_all(&output)?;
+        create_dir_all(output)?;
 
         for (_name, _spec) in files {}
 

@@ -1,4 +1,4 @@
-use std::path::{absolute, PathBuf};
+use std::path::{absolute, Path, PathBuf};
 
 use clap::Parser;
 use eyre::eyre;
@@ -39,7 +39,7 @@ impl SchemaOpt {
     }
 }
 
-fn load_dir(files: &mut IndexMap<String, Spec>, path: &PathBuf, base_path: &PathBuf) -> Result<()> {
+fn load_dir(files: &mut IndexMap<String, Spec>, path: &Path, base_path: &PathBuf) -> Result<()> {
     for entry in path.read_dir()? {
         let path = absolute(entry?.path())?;
 

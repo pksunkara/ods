@@ -14,7 +14,7 @@ fn fp(paths: &[&str], use_current_dir: bool) -> String {
     };
 
     paths
-        .into_iter()
+        .iter()
         .fold(path.join("fixtures").join("lint"), |acc, p| acc.join(p))
         .to_string_lossy()
         .to_string()
@@ -25,7 +25,7 @@ fn run_on_fixture(path: &str, args: &[&str], fail: bool) {
     let snapshot = current_dir!().join("snapshots").join("lint").join(path);
 
     let assert = Command::new(cargo_bin!("ods"))
-        .args(&["--color", "always", "lint"])
+        .args(["--color", "always", "lint"])
         .arg(plan)
         .args(args)
         .assert();

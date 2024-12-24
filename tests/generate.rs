@@ -9,7 +9,7 @@ fn run_on_fixture(path: &str, args: &[&str], fail: bool) {
     let snapshot = current_dir!().join("snapshots").join("generate").join(path);
 
     let assert = Command::new(cargo_bin!("ods"))
-        .args(&["--color", "always", "generate"])
+        .args(["--color", "always", "generate"])
         .args(args)
         .arg(plan)
         .assert();

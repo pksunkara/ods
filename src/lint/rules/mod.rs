@@ -23,6 +23,7 @@ rules! {
 impl Rules {
     // TODO: Let the user configure the rules for all specs in a single file
     // and merge them with the spec-specific rules
+    #[allow(clippy::type_complexity)]
     #[instrument(name = "run", skip_all)]
     pub(super) fn run(
         spec: &Spec,
@@ -32,7 +33,7 @@ impl Rules {
 
         for rule in Rules::value_variants() {
             trace!("Running rule: {}", rule);
-            let (level, ty, results) = rules_config.run_rule(&rule, spec)?;
+            let (ty, level, results) = rules_config.run_rule(rule, spec)?;
 
             for (name, result) in results {
                 all_results

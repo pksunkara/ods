@@ -30,7 +30,7 @@ fn setup(path: PathBuf) -> Case {
 
 fn test(path: &Path) -> Result<Data, Box<dyn Error>> {
     let cmd = Command::new(cargo_bin!("ods"))
-        .args(&["--color", "always", "lint", "--no-fail"])
+        .args(["--color", "always", "lint", "--no-fail"])
         .arg(path)
         .output()?;
 
