@@ -32,7 +32,7 @@ fn non_existent() {
 
 #[test]
 fn empty() {
-    run_on_fixture("empty.yaml", &[], true);
+    run_on_fixture("empty.yaml", &[], false);
 }
 
 #[test]

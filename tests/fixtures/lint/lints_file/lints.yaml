@@ -1,0 +1,5 @@
+lint:
+  needs_description:
+    level: error
+  needs_explicit_sources:
+    level: warn

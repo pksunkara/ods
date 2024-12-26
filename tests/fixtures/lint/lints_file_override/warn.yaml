@@ -1,6 +1,6 @@
 lint:
   needs_explicit_sources:
-    level: warn
+    level: error
 metrics:
   user logged out:
     sources: [api]

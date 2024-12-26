@@ -79,6 +79,7 @@ impl Lint {
 
         let plan_path = absolute(&self.schema.plan)?;
 
+        // Filter files to lint based on user input
         let selected = if self.files.is_empty() {
             files
         } else {
@@ -112,9 +113,19 @@ impl Lint {
                 .collect()
         };
 
-        for (name, spec) in selected {
+        // Check if lint config file exists
+        let lint_file = selected
+            .iter()
+            .find(|(name, _)| ["lints.json", "lints.yaml", "lints.yml"].contains(&name.as_str()));
+
+        let common_rules_config = lint_file.and_then(|(_, spec)| spec.lint.as_ref());
+
+        // TODO: Combine all files into one spec. Needed for some rules like `no_duplicate_metrics` etc..
+
+        // Lint each file
+        for (name, spec) in &selected {
             debug!("Linting file: {}", name);
-            let spec_results = Rules::run(&spec)?;
+            let spec_results = Rules::run(spec, common_rules_config)?;
 
             if spec_results.is_empty() {
                 trace!("No issues found in file: {}", name);

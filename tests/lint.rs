@@ -48,12 +48,7 @@ fn non_existent() {
 
 #[test]
 fn empty() {
-    run_on_fixture("empty.yaml", &[], true);
-}
-
-#[test]
-fn change_levels() {
-    run_on_fixture("change_levels", &[], true);
+    run_on_fixture("empty.yaml", &[], false);
 }
 
 #[test]
@@ -77,4 +72,31 @@ fn files_outside_plan() {
 #[test]
 fn files() {
     run_on_fixture("files", &[&fp(&["files", "good.yaml"], false)], false);
+}
+
+#[test]
+fn change_levels() {
+    run_on_fixture("change_levels", &[], true);
+}
+
+#[test]
+fn lints_file() {
+    run_on_fixture("lints_file", &[], true);
+}
+
+#[test]
+fn lints_file_override() {
+    run_on_fixture("lints_file_override", &[], true);
+}
+
+#[test]
+fn lints_file_not_selected() {
+    run_on_fixture(
+        "lints_file_not_selected",
+        &[
+            &fp(&["lints_file_not_selected", "error.yaml"], false),
+            &fp(&["lints_file_not_selected", "warn.yaml"], false),
+        ],
+        true,
+    );
 }

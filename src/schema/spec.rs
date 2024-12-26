@@ -18,7 +18,7 @@ pub struct Event {
 
 #[derive(Debug, Deserialize)]
 pub struct Spec {
-    pub metrics: HashMap<String, Event>,
+    pub metrics: Option<HashMap<String, Event>>,
     pub sources: Option<HashMap<String, Source>>,
     pub lint: Option<RulesConfig>,
 }

@@ -22,7 +22,7 @@ impl Rule for Config {
 
         let defined_sources = spec.sources.as_ref().unwrap_or(&empty);
 
-        for (name, event) in &spec.metrics {
+        for (name, event) in spec.metrics.as_ref().unwrap_or(&HashMap::new()) {
             if let Some(sources) = &event.sources {
                 for source in sources {
                     if !defined_sources.contains_key(source) {

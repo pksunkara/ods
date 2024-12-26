@@ -21,15 +21,23 @@ rules! {
 }
 
 impl Rules {
-    // TODO: Let the user configure the rules for all specs in a single file
-    // and merge them with the spec-specific rules
     #[allow(clippy::type_complexity)]
     #[instrument(name = "run", skip_all)]
     pub(super) fn run(
         spec: &Spec,
+        common_rules_config: Option<&RulesConfig>,
     ) -> Result<IndexMap<LintItem, IndexMap<String, Vec<(LintLevel, LintResult)>>>> {
         let mut all_results = IndexMap::new();
-        let rules_config = spec.lint.as_ref().cloned().unwrap_or_default();
+
+        // Merge common and spec lint configurations
+        let rules_config = spec.lint.as_ref().cloned().map_or(
+            common_rules_config.cloned().unwrap_or_default(),
+            |spec_config| {
+                common_rules_config.map_or(spec_config.clone(), |common_config| {
+                    spec_config.base_upon(common_config)
+                })
+            },
+        );
 
         for rule in Rules::value_variants() {
             trace!("Running rule: {}", rule);

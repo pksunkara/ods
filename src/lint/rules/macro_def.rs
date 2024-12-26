@@ -31,6 +31,21 @@ macro_rules! rules {
             pub struct RulesConfig {
                 $($rule: Option<[<$rule _config>]>,)+
             }
+
+            impl RulesConfig {
+                pub(super) fn base_upon(self, common: &Self) -> Self {
+                    Self {
+                        $($rule: self.$rule.as_ref().map_or(common.$rule.clone(), |self_rule| {
+                            common.$rule.as_ref().map_or(Some(self_rule.clone()), |common_rule| {
+                                Some([<$rule _config>] {
+                                    level: self_rule.level.or(common_rule.level),
+                                    config: self_rule.config.clone(),
+                                })
+                            })
+                        }),)+
+                    }
+                }
+            }
         }
 
         impl RulesConfig {
