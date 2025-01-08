@@ -7,12 +7,17 @@ use tracing::{instrument, trace};
 
 use crate::{
     error::Result,
-    lint::{LintItem, LintLevel, LintResult},
+    lint::{
+        rules::cache::{CommonCache, RuleCache},
+        LintItem, LintLevel, LintResult,
+    },
     schema::spec::Spec,
 };
 
 #[macro_use]
 mod macro_def;
+
+mod cache;
 
 rules! {
     needs_explicit_sources,
@@ -27,6 +32,10 @@ impl Rules {
     #[instrument(name = "pre_compute", skip_all)]
     pub(super) fn pre_compute(specs: Vec<&Spec>) -> Result<RulesCache> {
         let mut cache = RulesCache::default();
+
+        for spec in &specs {
+            cache._common.pre_compute(spec)?;
+        }
 
         for rule in Rules::value_variants() {
             trace!("Pre-computing for rule: {}", rule);
@@ -87,7 +96,11 @@ trait Rule: FmtDebug + Clone + Default + for<'de> Deserialize<'de> {
         Ok(())
     }
 
-    fn run(&self, cache: &Self::Cache, spec: &Spec) -> Result<Vec<(LintItem, String, LintResult)>>;
+    fn run(
+        &self,
+        cache: RuleCache<Self::Cache>,
+        spec: &Spec,
+    ) -> Result<Vec<(LintItem, String, LintResult)>>;
 }
 
 type NoCache = ();

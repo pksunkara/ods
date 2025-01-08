@@ -5,10 +5,10 @@ use serde::Deserialize;
 use crate::{
     error::Result,
     lint::{
-        rules::{NoCache, Rule},
+        rules::{CommonCache, NoCache, Rule, RuleCache},
         LintItem, LintLevel, LintResult,
     },
-    schema::spec::{Source, Spec},
+    schema::spec::Spec,
 };
 
 #[derive(Debug, Clone, Default, Deserialize)]
@@ -21,16 +21,16 @@ impl Rule for Config {
         LintLevel::Error
     }
 
-    fn run(&self, _: &Self::Cache, spec: &Spec) -> Result<Vec<(LintItem, String, LintResult)>> {
+    fn run(
+        &self,
+        cache: RuleCache<Self::Cache>,
+        spec: &Spec,
+    ) -> Result<Vec<(LintItem, String, LintResult)>> {
         let mut results = vec![];
-        let empty = HashMap::new();
-
-        // TODO: Use the global sources
-        let defined_sources = spec.sources.as_ref().unwrap_or(&empty);
 
         for (name, event) in spec.metrics.as_ref().unwrap_or(&HashMap::new()) {
             results.extend(self.check_sources(
-                defined_sources,
+                cache.common,
                 &event.sources,
                 LintItem::Metric,
                 name,
@@ -39,7 +39,7 @@ impl Rule for Config {
 
         for (name, event) in spec.pageviews.as_ref().unwrap_or(&HashMap::new()) {
             results.extend(self.check_sources(
-                defined_sources,
+                cache.common,
                 &event.sources,
                 LintItem::Pageview,
                 name,
@@ -53,7 +53,7 @@ impl Rule for Config {
 impl Config {
     fn check_sources(
         &self,
-        defined_sources: &HashMap<String, Source>,
+        cache: &CommonCache,
         sources: &Option<Vec<String>>,
         ty: LintItem,
         name: &String,
@@ -62,7 +62,7 @@ impl Config {
 
         if let Some(sources) = sources {
             for source in sources {
-                if !defined_sources.contains_key(source) {
+                if !cache.sources.contains(source) {
                     results.push((
                         ty,
                         name.clone(),

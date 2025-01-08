@@ -1,6 +1,3 @@
-sources:
-  ios:
-    description: iOS application
 metrics:
   user logged out:
     sources: [api, ios]

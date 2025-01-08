@@ -49,6 +49,7 @@ macro_rules! rules {
 
             #[derive(Debug, Default)]
             pub(super) struct RulesCache {
+                _common: CommonCache,
                 $($rule: <$rule::Config as Rule>::Cache,)+
             }
         }
@@ -79,7 +80,10 @@ macro_rules! rules {
                             return Ok((level, vec![]));
                         }
 
-                        let results = config.config.run(&cache.$rule, spec)?;
+                        let results = config.config.run(RuleCache {
+                            common: &cache._common,
+                            rule: &cache.$rule
+                        }, spec)?;
 
                         return Ok((level, results));
                     })+
