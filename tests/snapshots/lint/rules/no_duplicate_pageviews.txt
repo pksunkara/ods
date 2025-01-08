@@ -1,0 +1,11 @@
+
+[35manother.yaml[39m
+  [34mhomepage[39m [36m(pageview)[39m
+    [31merror[39m pageview name is duplicated
+
+[35mbasic.yaml[39m
+  [34mhomepage[39m [36m(pageview)[39m
+    [31merror[39m pageview name is duplicated
+
+[1m[31m2[39m[0m errors, [1m[33m0[39m[0m warnings
+

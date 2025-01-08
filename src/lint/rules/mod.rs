@@ -18,6 +18,8 @@ rules! {
     needs_description,
     needs_explicit_sources,
     needs_source_description,
+    no_duplicate_metrics,
+    no_duplicate_pageviews,
     no_duplicate_sources,
 }
 

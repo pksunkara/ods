@@ -35,6 +35,7 @@ enum LintLevel {
 #[serde(rename_all = "snake_case")]
 enum LintItem {
     Metric,
+    Pageview,
     Source,
 }
 

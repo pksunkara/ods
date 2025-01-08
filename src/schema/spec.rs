@@ -17,10 +17,17 @@ pub struct Event {
 }
 
 #[derive(Debug, Deserialize)]
+pub struct Pageview {
+    pub description: Option<String>,
+    pub sources: Option<Vec<String>>,
+}
+
+#[derive(Debug, Deserialize)]
 pub struct Spec {
-    pub metrics: Option<HashMap<String, Event>>,
-    pub sources: Option<HashMap<String, Source>>,
     pub lint: Option<RulesConfig>,
+    pub metrics: Option<HashMap<String, Event>>,
+    pub pageviews: Option<HashMap<String, Pageview>>,
+    pub sources: Option<HashMap<String, Source>>,
 }
 
 impl Spec {

@@ -1,0 +1,3 @@
+metrics:
+  user logged out:
+    description: User logs out of the application
