@@ -4,7 +4,10 @@ use serde::Deserialize;
 
 use crate::{
     error::Result,
-    lint::{rules::Rule, LintResult},
+    lint::{
+        rules::{NoCache, Rule},
+        LintResult,
+    },
     schema::spec::Spec,
 };
 
@@ -12,7 +15,9 @@ use crate::{
 pub struct Config {}
 
 impl Rule for Config {
-    fn run(&self, spec: &Spec) -> Result<Vec<(String, LintResult)>> {
+    type Cache = NoCache;
+
+    fn run(&self, _: &Self::Cache, spec: &Spec) -> Result<Vec<(String, LintResult)>> {
         let mut results = vec![];
 
         for (name, event) in spec.metrics.as_ref().unwrap_or(&HashMap::new()) {

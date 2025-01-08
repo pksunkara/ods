@@ -114,18 +114,18 @@ impl Lint {
         };
 
         // Check if lint config file exists
-        let lint_file = selected
+        let lint_file_config = selected
             .iter()
-            .find(|(name, _)| ["lints.json", "lints.yaml", "lints.yml"].contains(&name.as_str()));
+            .find(|(name, _)| ["lints.json", "lints.yaml", "lints.yml"].contains(&name.as_str()))
+            .and_then(|(_, spec)| spec.lint.as_ref());
 
-        let common_rules_config = lint_file.and_then(|(_, spec)| spec.lint.as_ref());
-
-        // TODO: Combine all files into one spec. Needed for some rules like `no_duplicate_metrics` etc..
+        // Compute cache
+        let cache = Rules::pre_compute(selected.iter().map(|(_, spec)| spec).collect())?;
 
         // Lint each file
         for (name, spec) in &selected {
             debug!("Linting file: {}", name);
-            let spec_results = Rules::run(spec, common_rules_config)?;
+            let spec_results = Rules::run(&cache, lint_file_config, spec)?;
 
             if spec_results.is_empty() {
                 trace!("No issues found in file: {}", name);

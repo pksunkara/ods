@@ -1,8 +1,13 @@
+use std::collections::HashMap;
+
 use serde::Deserialize;
 
 use crate::{
     error::Result,
-    lint::{rules::Rule, LintItem, LintResult},
+    lint::{
+        rules::{NoCache, Rule},
+        LintItem, LintResult,
+    },
     schema::spec::Spec,
 };
 
@@ -10,23 +15,23 @@ use crate::{
 pub struct Config {}
 
 impl Rule for Config {
+    type Cache = NoCache;
+
     fn ty(&self) -> LintItem {
         LintItem::Source
     }
 
-    fn run(&self, spec: &Spec) -> Result<Vec<(String, LintResult)>> {
+    fn run(&self, _: &Self::Cache, spec: &Spec) -> Result<Vec<(String, LintResult)>> {
         let mut results = vec![];
 
-        if let Some(sources) = spec.sources.as_ref() {
-            for (name, source) in sources {
-                if source.description.is_none() {
-                    results.push((
-                        name.clone(),
-                        LintResult {
-                            message: "description is missing".to_string(),
-                        },
-                    ));
-                }
+        for (name, source) in spec.sources.as_ref().unwrap_or(&HashMap::new()) {
+            if source.description.is_none() {
+                results.push((
+                    name.clone(),
+                    LintResult {
+                        message: "description is missing".to_string(),
+                    },
+                ));
             }
         }
 

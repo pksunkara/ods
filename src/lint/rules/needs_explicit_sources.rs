@@ -4,7 +4,10 @@ use serde::Deserialize;
 
 use crate::{
     error::Result,
-    lint::{rules::Rule, LintLevel, LintResult},
+    lint::{
+        rules::{NoCache, Rule},
+        LintLevel, LintResult,
+    },
     schema::spec::Spec,
 };
 
@@ -12,11 +15,13 @@ use crate::{
 pub struct Config {}
 
 impl Rule for Config {
+    type Cache = NoCache;
+
     fn level(&self) -> LintLevel {
         LintLevel::Error
     }
 
-    fn run(&self, spec: &Spec) -> Result<Vec<(String, LintResult)>> {
+    fn run(&self, _: &Self::Cache, spec: &Spec) -> Result<Vec<(String, LintResult)>> {
         let mut results = vec![];
         let empty = HashMap::new();
 

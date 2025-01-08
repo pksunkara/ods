@@ -46,10 +46,25 @@ macro_rules! rules {
                     }
                 }
             }
+
+            #[derive(Debug, Default)]
+            pub(super) struct RulesCache {
+                $($rule: <$rule::Config as Rule>::Cache,)+
+            }
+        }
+
+        impl RulesCache {
+            pub(super) fn pre_compute_rule(&mut self, rule: &Rules, spec: &Spec) -> Result<()> {
+                match rule {
+                    $(Rules::$rule => <$rule::Config as Rule>::pre_compute(&mut self.$rule, spec)?,)+
+                }
+
+                Ok(())
+            }
         }
 
         impl RulesConfig {
-            pub(super) fn run_rule(&self, rule: &Rules, spec: &Spec) -> Result<(LintItem, LintLevel, Vec<(String, LintResult)>)> {
+            pub(super) fn run_rule(&self, rule: &Rules, cache: &RulesCache, spec: &Spec) -> Result<(LintItem, LintLevel, Vec<(String, LintResult)>)> {
                 match rule {
                     $(Rules::$rule => {
                         let config = self
@@ -65,7 +80,7 @@ macro_rules! rules {
                             return Ok((ty, level, vec![]));
                         }
 
-                        let results = config.config.run(spec)?;
+                        let results = config.config.run(&cache.$rule, spec)?;
 
                         return Ok((ty, level, results));
                     })+

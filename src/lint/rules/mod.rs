@@ -18,22 +18,39 @@ rules! {
     needs_description,
     needs_explicit_sources,
     needs_source_description,
+    no_duplicate_sources,
 }
 
 impl Rules {
+    #[instrument(name = "pre_compute", skip_all)]
+    pub(super) fn pre_compute(specs: Vec<&Spec>) -> Result<RulesCache> {
+        let mut cache = RulesCache::default();
+
+        for rule in Rules::value_variants() {
+            trace!("Pre-computing for rule: {}", rule);
+
+            for spec in &specs {
+                cache.pre_compute_rule(rule, spec)?;
+            }
+        }
+
+        Ok(cache)
+    }
+
     #[allow(clippy::type_complexity)]
     #[instrument(name = "run", skip_all)]
     pub(super) fn run(
+        cache: &RulesCache,
+        lint_file_config: Option<&RulesConfig>,
         spec: &Spec,
-        common_rules_config: Option<&RulesConfig>,
     ) -> Result<IndexMap<LintItem, IndexMap<String, Vec<(LintLevel, LintResult)>>>> {
         let mut all_results = IndexMap::new();
 
         // Merge common and spec lint configurations
         let rules_config = spec.lint.as_ref().cloned().map_or(
-            common_rules_config.cloned().unwrap_or_default(),
+            lint_file_config.cloned().unwrap_or_default(),
             |spec_config| {
-                common_rules_config.map_or(spec_config.clone(), |common_config| {
+                lint_file_config.map_or(spec_config.clone(), |common_config| {
                     spec_config.base_upon(common_config)
                 })
             },
@@ -41,7 +58,7 @@ impl Rules {
 
         for rule in Rules::value_variants() {
             trace!("Running rule: {}", rule);
-            let (ty, level, results) = rules_config.run_rule(rule, spec)?;
+            let (ty, level, results) = rules_config.run_rule(rule, cache, spec)?;
 
             for (name, result) in results {
                 all_results
@@ -58,6 +75,8 @@ impl Rules {
 }
 
 trait Rule: FmtDebug + Clone + Default + for<'de> Deserialize<'de> {
+    type Cache;
+
     fn level(&self) -> LintLevel {
         LintLevel::Warning
     }
@@ -66,5 +85,11 @@ trait Rule: FmtDebug + Clone + Default + for<'de> Deserialize<'de> {
         LintItem::Metric
     }
 
-    fn run(&self, spec: &Spec) -> Result<Vec<(String, LintResult)>>;
+    fn pre_compute(_: &mut Self::Cache, _: &Spec) -> Result<()> {
+        Ok(())
+    }
+
+    fn run(&self, cache: &Self::Cache, spec: &Spec) -> Result<Vec<(String, LintResult)>>;
 }
+
+type NoCache = ();
