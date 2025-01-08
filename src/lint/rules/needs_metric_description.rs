@@ -6,7 +6,7 @@ use crate::{
     error::Result,
     lint::{
         rules::{NoCache, Rule},
-        LintResult,
+        LintItem, LintResult,
     },
     schema::spec::Spec,
 };
@@ -17,12 +17,13 @@ pub struct Config {}
 impl Rule for Config {
     type Cache = NoCache;
 
-    fn run(&self, _: &Self::Cache, spec: &Spec) -> Result<Vec<(String, LintResult)>> {
+    fn run(&self, _: &Self::Cache, spec: &Spec) -> Result<Vec<(LintItem, String, LintResult)>> {
         let mut results = vec![];
 
         for (name, event) in spec.metrics.as_ref().unwrap_or(&HashMap::new()) {
             if event.description.is_none() {
                 results.push((
+                    LintItem::Metric,
                     name.clone(),
                     LintResult {
                         message: "description is missing".to_string(),

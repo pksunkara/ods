@@ -23,10 +23,6 @@ impl Rule for Config {
         LintLevel::Error
     }
 
-    fn ty(&self) -> LintItem {
-        LintItem::Pageview
-    }
-
     fn pre_compute(cache: &mut Self::Cache, spec: &Spec) -> Result<()> {
         cache.pageviews.extend(
             spec.pageviews
@@ -39,12 +35,13 @@ impl Rule for Config {
         Ok(())
     }
 
-    fn run(&self, cache: &Self::Cache, spec: &Spec) -> Result<Vec<(String, LintResult)>> {
+    fn run(&self, cache: &Self::Cache, spec: &Spec) -> Result<Vec<(LintItem, String, LintResult)>> {
         let mut results = vec![];
 
         for name in spec.pageviews.as_ref().unwrap_or(&HashMap::new()).keys() {
             if cache.pageviews.iter().filter(|s| *s == name).count() > 1 {
                 results.push((
+                    LintItem::Pageview,
                     name.clone(),
                     LintResult {
                         message: "pageview name is duplicated".to_string(),

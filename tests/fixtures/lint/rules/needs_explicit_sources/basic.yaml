@@ -5,3 +5,7 @@ metrics:
   user logged out:
     sources: [api, ios]
     description: User logs out of the application
+pageviews:
+  homepage:
+    sources: [console, ios]
+    description: Homepage of the application

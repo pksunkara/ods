@@ -15,8 +15,8 @@ use crate::{
 mod macro_def;
 
 rules! {
-    needs_description,
     needs_explicit_sources,
+    needs_metric_description,
     needs_source_description,
     no_duplicate_metrics,
     no_duplicate_pageviews,
@@ -60,9 +60,9 @@ impl Rules {
 
         for rule in Rules::value_variants() {
             trace!("Running rule: {}", rule);
-            let (ty, level, results) = rules_config.run_rule(rule, cache, spec)?;
+            let (level, results) = rules_config.run_rule(rule, cache, spec)?;
 
-            for (name, result) in results {
+            for (ty, name, result) in results {
                 all_results
                     .entry(ty)
                     .or_insert_with(IndexMap::new)
@@ -83,15 +83,11 @@ trait Rule: FmtDebug + Clone + Default + for<'de> Deserialize<'de> {
         LintLevel::Warning
     }
 
-    fn ty(&self) -> LintItem {
-        LintItem::Metric
-    }
-
     fn pre_compute(_: &mut Self::Cache, _: &Spec) -> Result<()> {
         Ok(())
     }
 
-    fn run(&self, cache: &Self::Cache, spec: &Spec) -> Result<Vec<(String, LintResult)>>;
+    fn run(&self, cache: &Self::Cache, spec: &Spec) -> Result<Vec<(LintItem, String, LintResult)>>;
 }
 
 type NoCache = ();

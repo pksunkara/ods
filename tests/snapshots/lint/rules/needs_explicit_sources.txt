@@ -2,6 +2,8 @@
 [35mbasic.yaml[39m
   [34muser logged out[39m [36m(metric)[39m
     [31merror[39m source `api` is not defined
+  [34mhomepage[39m [36m(pageview)[39m
+    [31merror[39m source `console` is not defined
 
-[1m[31m1[39m[0m errors, [1m[33m0[39m[0m warnings
+[1m[31m2[39m[0m errors, [1m[33m0[39m[0m warnings
 

@@ -1,5 +1,5 @@
 lint:
-  needs_description:
+  needs_metric_description:
     level: error
 metrics:
   user logged in:

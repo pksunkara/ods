@@ -4,7 +4,7 @@ use serde::Deserialize;
 
 use crate::{
     error::Result,
-    lint::{rules::Rule, LintLevel, LintResult},
+    lint::{rules::Rule, LintItem, LintLevel, LintResult},
     schema::spec::Spec,
 };
 
@@ -35,12 +35,13 @@ impl Rule for Config {
         Ok(())
     }
 
-    fn run(&self, cache: &Self::Cache, spec: &Spec) -> Result<Vec<(String, LintResult)>> {
+    fn run(&self, cache: &Self::Cache, spec: &Spec) -> Result<Vec<(LintItem, String, LintResult)>> {
         let mut results = vec![];
 
         for name in spec.metrics.as_ref().unwrap_or(&HashMap::new()).keys() {
             if cache.metrics.iter().filter(|s| *s == name).count() > 1 {
                 results.push((
+                    LintItem::Metric,
                     name.clone(),
                     LintResult {
                         message: "metric name is duplicated".to_string(),
