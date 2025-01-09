@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    metric: train_case
+metrics:
+  User Logged In Train:
+    description: User logs into the application
+  User-Logged-Out:
+    description: User logs out of the application

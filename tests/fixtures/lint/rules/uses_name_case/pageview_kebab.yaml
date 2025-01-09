@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    pageview: kebab_case
+pageviews:
+  About Page Kebab:
+    description: About page
+  home-page:
+    description: Home page

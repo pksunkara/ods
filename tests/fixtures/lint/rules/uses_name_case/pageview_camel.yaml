@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    pageview: camel_case
+pageviews:
+  About Page Camel:
+    description: About page
+  homePage:
+    description: Home page

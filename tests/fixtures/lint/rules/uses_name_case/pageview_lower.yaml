@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    pageview: lower_case
+pageviews:
+  About Page Lower:
+    description: About page
+  home page:
+    description: Home page

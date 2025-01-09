@@ -2,4 +2,4 @@ lint:
   needs_metric_description:
     level: off
 metrics:
-  user logged in with github:
+  User Logged In With Github:

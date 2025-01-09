@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    pageview: screaming_snake_case
+pageviews:
+  About Page Screaming Snake:
+    description: About page
+  HOME_PAGE:
+    description: Home page

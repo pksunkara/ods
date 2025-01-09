@@ -1,6 +1,6 @@
 
 [35mbasic.yaml[39m
-  [34muser logged in[39m [36m(metric)[39m
+  [34mUser Logged In[39m [36m(metric)[39m
     [33m warn[39m description is missing
 
 [1m[31m0[39m[0m errors, [1m[33m1[39m[0m warnings

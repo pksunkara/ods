@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    metric: screaming_snake_case
+metrics:
+  User Logged In Screaming Snake:
+    description: User logs into the application
+  USER_LOGGED_OUT:
+    description: User logs out of the application

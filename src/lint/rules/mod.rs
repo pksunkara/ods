@@ -26,6 +26,7 @@ rules! {
     no_duplicate_metrics,
     no_duplicate_pageviews,
     no_duplicate_sources,
+    uses_name_case,
 }
 
 impl Rules {

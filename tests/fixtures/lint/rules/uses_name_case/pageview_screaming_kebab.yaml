@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    pageview: screaming_kebab_case
+pageviews:
+  About Page Screaming Kebab:
+    description: About page
+  HOME-PAGE:
+    description: Home page

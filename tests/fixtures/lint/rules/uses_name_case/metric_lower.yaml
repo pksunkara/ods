@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    metric: lower_case
+metrics:
+  User Logged In Lower:
+    description: User logs into the application
+  user logged out:
+    description: User logs out of the application

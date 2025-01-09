@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    metric: camel_case
+metrics:
+  User Logged In Camel:
+    description: User logs into the application
+  userLoggedOut:
+    description: User logs out of the application

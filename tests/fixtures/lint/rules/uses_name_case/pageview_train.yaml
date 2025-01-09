@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    pageview: train_case
+pageviews:
+  About Page Train:
+    description: About page
+  Home-Page:
+    description: Home page

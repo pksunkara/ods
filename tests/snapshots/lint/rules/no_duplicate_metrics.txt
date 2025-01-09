@@ -1,10 +1,10 @@
 
 [35manother.yaml[39m
-  [34muser logged out[39m [36m(metric)[39m
+  [34mUser Logged Out[39m [36m(metric)[39m
     [31merror[39m metric name is duplicated
 
 [35mbasic.yaml[39m
-  [34muser logged out[39m [36m(metric)[39m
+  [34mUser Logged Out[39m [36m(metric)[39m
     [31merror[39m metric name is duplicated
 
 [1m[31m2[39m[0m errors, [1m[33m0[39m[0m warnings

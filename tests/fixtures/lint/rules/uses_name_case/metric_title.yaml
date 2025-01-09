@@ -1,7 +1,5 @@
-lint:
-  needs_explicit_sources:
-    level: warn
 metrics:
+  user logged in title:
+    description: User logs into the application
   User Logged Out:
-    sources: [api]
     description: User logs out of the application

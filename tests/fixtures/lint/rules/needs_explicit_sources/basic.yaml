@@ -1,8 +1,8 @@
 metrics:
-  user logged out:
+  User Logged Out:
     sources: [api, ios]
     description: User logs out of the application
 pageviews:
-  homepage:
+  Homepage:
     sources: [console, ios]
     description: Homepage of the application

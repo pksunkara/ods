@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    metric: pascal_case
+metrics:
+  User Logged In Pascal:
+    description: User logs into the application
+  UserLoggedOut:
+    description: User logs out of the application

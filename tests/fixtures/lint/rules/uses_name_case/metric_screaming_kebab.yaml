@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    metric: screaming_kebab_case
+metrics:
+  User Logged In Screaming Kebab:
+    description: User logs into the application
+  USER-LOGGED-OUT:
+    description: User logs out of the application

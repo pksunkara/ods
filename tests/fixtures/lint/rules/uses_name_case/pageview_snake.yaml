@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    pageview: snake_case
+pageviews:
+  About Page Snake:
+    description: About page
+  home_page:
+    description: Home page

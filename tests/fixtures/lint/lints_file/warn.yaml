@@ -1,4 +1,4 @@
 metrics:
-  user logged out:
+  User Logged Out:
     sources: [api]
     description: User logs out of the application

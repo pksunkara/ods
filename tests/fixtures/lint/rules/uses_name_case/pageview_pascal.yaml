@@ -1,0 +1,8 @@
+lint:
+  uses_name_case:
+    pageview: pascal_case
+pageviews:
+  About Page Pascal:
+    description: About page
+  HomePage:
+    description: Home page

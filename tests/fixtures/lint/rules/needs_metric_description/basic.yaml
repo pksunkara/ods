@@ -1,4 +1,4 @@
 metrics:
-  user logged in:
-  user logged out:
+  User Logged In:
+  User Logged Out:
     description: User logs out of the application

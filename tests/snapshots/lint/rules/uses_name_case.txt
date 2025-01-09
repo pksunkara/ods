@@ -1,0 +1,83 @@
+
+[35mmetric_kebab.yaml[39m
+  [34mUser Logged In Kebab[39m [36m(metric)[39m
+    [31merror[39m name is not in kebab-case
+
+[35mmetric_snake.yaml[39m
+  [34mUser Logged In Snake[39m [36m(metric)[39m
+    [31merror[39m name is not in snake_case
+
+[35mmetric_title.yaml[39m
+  [34muser logged in title[39m [36m(metric)[39m
+    [31merror[39m name is not in Title Case
+
+[35mpageview_screaming_snake.yaml[39m
+  [34mAbout Page Screaming Snake[39m [36m(pageview)[39m
+    [31merror[39m name is not in SCREAMING_SNAKE_CASE
+
+[35mpageview_snake.yaml[39m
+  [34mAbout Page Snake[39m [36m(pageview)[39m
+    [31merror[39m name is not in snake_case
+
+[35mmetric_screaming_kebab.yaml[39m
+  [34mUser Logged In Screaming Kebab[39m [36m(metric)[39m
+    [31merror[39m name is not in SCREAMING-KEBAB-CASE
+
+[35mmetric_upper.yaml[39m
+  [34mUser Logged In Upper[39m [36m(metric)[39m
+    [31merror[39m name is not in UPPER CASE
+
+[35mmetric_lower.yaml[39m
+  [34mUser Logged In Lower[39m [36m(metric)[39m
+    [31merror[39m name is not in lower case
+
+[35mmetric_train.yaml[39m
+  [34mUser Logged In Train[39m [36m(metric)[39m
+    [31merror[39m name is not in Train-Case
+
+[35mpageview_lower.yaml[39m
+  [34mAbout Page Lower[39m [36m(pageview)[39m
+    [31merror[39m name is not in lower case
+
+[35mpageview_train.yaml[39m
+  [34mAbout Page Train[39m [36m(pageview)[39m
+    [31merror[39m name is not in Train-Case
+
+[35mpageview_title.yaml[39m
+  [34mabout page title[39m [36m(pageview)[39m
+    [31merror[39m name is not in Title Case
+
+[35mmetric_camel.yaml[39m
+  [34mUser Logged In Camel[39m [36m(metric)[39m
+    [31merror[39m name is not in camelCase
+
+[35mpageview_screaming_kebab.yaml[39m
+  [34mAbout Page Screaming Kebab[39m [36m(pageview)[39m
+    [31merror[39m name is not in SCREAMING-KEBAB-CASE
+
+[35mpageview_pascal.yaml[39m
+  [34mAbout Page Pascal[39m [36m(pageview)[39m
+    [31merror[39m name is not in PascalCase
+
+[35mpageview_camel.yaml[39m
+  [34mAbout Page Camel[39m [36m(pageview)[39m
+    [31merror[39m name is not in camelCase
+
+[35mpageview_kebab.yaml[39m
+  [34mAbout Page Kebab[39m [36m(pageview)[39m
+    [31merror[39m name is not in kebab-case
+
+[35mpageview_upper.yaml[39m
+  [34mAbout Page Upper[39m [36m(pageview)[39m
+    [31merror[39m name is not in UPPER CASE
+
+[35mmetric_pascal.yaml[39m
+  [34mUser Logged In Pascal[39m [36m(metric)[39m
+    [31merror[39m name is not in PascalCase
+
+[35mmetric_screaming_snake.yaml[39m
+  [34mUser Logged In Screaming Snake[39m [36m(metric)[39m
+    [31merror[39m name is not in SCREAMING_SNAKE_CASE
+
+[1m[31m20[39m[0m errors, [1m[33m0[39m[0m warnings
+
