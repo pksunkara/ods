@@ -18,6 +18,7 @@ use crate::{
     schema::spec::Spec,
 };
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Case {
@@ -95,7 +96,7 @@ impl Rule for Config {
         let metric_case = self.metric.as_ref().unwrap_or(&Case::TitleCase);
         let pageview_case = self.pageview.as_ref().unwrap_or(&Case::TitleCase);
 
-        for name in (&spec.metrics).as_ref().unwrap_or(&HashMap::new()).keys() {
+        for name in spec.metrics.as_ref().unwrap_or(&HashMap::new()).keys() {
             if &metric_case.convert(name) != name {
                 results.push((
                     LintItem::Metric,
@@ -107,7 +108,7 @@ impl Rule for Config {
             }
         }
 
-        for name in (&spec.pageviews).as_ref().unwrap_or(&HashMap::new()).keys() {
+        for name in spec.pageviews.as_ref().unwrap_or(&HashMap::new()).keys() {
             if &pageview_case.convert(name) != name {
                 results.push((
                     LintItem::Pageview,

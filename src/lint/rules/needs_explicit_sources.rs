@@ -56,7 +56,7 @@ impl Config {
         cache: &CommonCache,
         sources: &Option<Vec<String>>,
         ty: LintItem,
-        name: &String,
+        name: &str,
     ) -> Vec<(LintItem, String, LintResult)> {
         let mut results = vec![];
 
@@ -65,7 +65,7 @@ impl Config {
                 if !cache.sources.contains(source) {
                     results.push((
                         ty,
-                        name.clone(),
+                        name.to_owned(),
                         LintResult {
                             message: format!("source `{source}` is not defined"),
                         },
