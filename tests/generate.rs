@@ -1,5 +1,5 @@
 use snapbox::{
-    cmd::{cargo_bin, Command},
+    cmd::{Command, cargo_bin},
     data::Data,
     utils::current_dir,
 };

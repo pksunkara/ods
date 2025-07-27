@@ -1,7 +1,3 @@
 repository = "open-data-schema/ods"
 
-[homebrew]
-repository = "open-data-schema/ods"
-
-[scoop]
-repository = "open-data-schema/ods"
+exclude = ["npm"]

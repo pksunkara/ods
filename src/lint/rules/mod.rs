@@ -8,8 +8,8 @@ use tracing::{instrument, trace};
 use crate::{
     error::Result,
     lint::{
-        rules::cache::{CommonCache, RuleCache},
         LintItem, LintLevel, LintResult,
+        rules::cache::{CommonCache, RuleCache},
     },
     schema::spec::Spec,
 };

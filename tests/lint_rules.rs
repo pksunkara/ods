@@ -4,9 +4,9 @@ use std::{
 };
 
 use snapbox::{
-    cmd::{cargo_bin, Command},
-    utils::current_dir,
     Data,
+    cmd::{Command, cargo_bin},
+    utils::current_dir,
 };
 use tryfn::{Case, Harness};
 

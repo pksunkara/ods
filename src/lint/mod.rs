@@ -1,6 +1,6 @@
 use std::{
     fmt::{Display as FmtDisplay, Formatter, Result as FmtResult},
-    path::{absolute, PathBuf},
+    path::{PathBuf, absolute},
 };
 
 use anstream::println;
@@ -13,7 +13,7 @@ use serde_json::to_string;
 use tracing::{debug, instrument, trace};
 
 use crate::{
-    error::{exit, Result},
+    error::{Result, exit},
     lint::rules::Rules,
     schema::SchemaOpt,
 };

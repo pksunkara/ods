@@ -1,4 +1,4 @@
-use std::path::{absolute, Path, PathBuf};
+use std::path::{Path, PathBuf, absolute};
 
 use clap::Parser;
 use eyre::eyre;
