@@ -4,7 +4,7 @@ use serde::Deserialize;
 
 use crate::{
     error::Result,
-    lint::{
+    commands::lint::{
         rules::{Rule, RuleCache},
         LintItem, LintLevel, LintResult,
     },
@@ -15,7 +15,7 @@ use crate::{
 pub struct Config {}
 
 #[derive(Debug, Default)]
-pub struct Cache {
+pub(super) struct Cache {
     pageviews: Vec<String>,
 }
 

@@ -4,7 +4,7 @@ use serde::Deserialize;
 
 use crate::{
     error::Result,
-    lint::{
+    commands::lint::{
         rules::{NoCache, Rule, RuleCache},
         LintItem, LintResult,
     },

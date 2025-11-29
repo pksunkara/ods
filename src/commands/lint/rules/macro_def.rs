@@ -1,6 +1,6 @@
 macro_rules! rules {
     ($($rule:ident,)+) => {
-        $(mod $rule;)+
+        $(pub mod $rule;)+
 
         #[allow(non_camel_case_types)]
         #[derive(Clone, ValueEnum)]
@@ -20,16 +20,16 @@ macro_rules! rules {
             $(
                 #[allow(non_camel_case_types)]
                 #[derive(Debug, Clone, Default, Deserialize)]
-                struct [<$rule _config>] {
-                    level: Option<LintLevel>,
+                pub struct [<$rule _config>] {
+                    pub level: Option<LintLevel>,
                     #[serde(flatten)]
-                    config: $rule::Config,
+                    pub config: $rule::Config,
                 }
             )+
 
             #[derive(Debug, Clone, Default, Deserialize)]
             pub struct RulesConfig {
-                $($rule: Option<[<$rule _config>]>,)+
+                $(pub $rule: Option<[<$rule _config>]>,)+
             }
 
             impl RulesConfig {

@@ -6,11 +6,11 @@ use serde::Deserialize;
 use tracing::{instrument, trace};
 
 use crate::{
-    error::Result,
-    lint::{
+    commands::lint::{
         LintItem, LintLevel, LintResult,
         rules::cache::{CommonCache, RuleCache},
     },
+    error::Result,
     schema::spec::Spec,
 };
 

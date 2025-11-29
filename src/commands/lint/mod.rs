@@ -13,8 +13,8 @@ use serde_json::to_string;
 use tracing::{debug, instrument, trace};
 
 use crate::{
+    commands::lint::rules::Rules,
     error::{Result, exit},
-    lint::rules::Rules,
     schema::SchemaOpt,
 };
 
@@ -22,7 +22,7 @@ pub mod rules;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
 #[serde(rename_all = "snake_case")]
-enum LintLevel {
+pub enum LintLevel {
     Off,
 
     #[serde(rename = "warn")]
@@ -60,19 +60,19 @@ struct LintResult {
 #[derive(Debug, Parser)]
 pub struct Lint {
     #[clap(flatten)]
-    schema: SchemaOpt,
+    pub schema: SchemaOpt,
 
     /// File paths in the plan folder to lint (defaults to all)
-    files: Vec<PathBuf>,
+    pub files: Vec<PathBuf>,
 
     /// Exit with a zero code even on lint errors
     #[clap(long)]
-    no_fail: bool,
+    pub no_fail: bool,
 }
 
 impl Lint {
     #[instrument(name = "lint", skip_all)]
-    pub fn run(self) -> Result {
+    pub(crate) fn run(&self) -> Result {
         let mut warnings = 0;
         let mut errors = 0;
 
@@ -86,7 +86,7 @@ impl Lint {
         } else {
             let selected_files = self
                 .files
-                .into_iter()
+                .iter()
                 .map(|file| {
                     let file_path = absolute(&file)?;
 

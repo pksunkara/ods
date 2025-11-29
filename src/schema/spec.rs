@@ -3,7 +3,7 @@ use std::{collections::HashMap, fs::read_to_string, path::PathBuf};
 use eyre::eyre;
 use serde::Deserialize;
 
-use crate::{error::Result, lint::rules::RulesConfig};
+use crate::{commands::lint::rules::RulesConfig, error::Result};
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct Source {
@@ -31,7 +31,7 @@ pub struct Spec {
 }
 
 impl Spec {
-    pub fn load(path: &PathBuf) -> Result<Spec> {
+    pub(crate) fn load(path: &PathBuf) -> Result<Spec> {
         let file_content = read_to_string(path)?;
 
         let spec = match path.extension().map(|v| v.to_string_lossy()) {

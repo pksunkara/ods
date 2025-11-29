@@ -17,7 +17,7 @@ pub struct SchemaOpt {
 
 impl SchemaOpt {
     #[instrument(name = "load", skip_all)]
-    pub fn load(&self) -> Result<IndexMap<String, Spec>> {
+    pub(crate) fn load(&self) -> Result<IndexMap<String, Spec>> {
         let mut files = IndexMap::new();
         let base_path = absolute(&self.plan)?;
 

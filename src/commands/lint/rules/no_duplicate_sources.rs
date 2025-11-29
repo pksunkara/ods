@@ -4,9 +4,9 @@ use serde::Deserialize;
 
 use crate::{
     error::Result,
-    lint::{
+    commands::lint::{
         rules::{NoCache, Rule, RuleCache},
-        LintItem, LintResult,
+        LintItem, LintLevel, LintResult,
     },
     schema::spec::Spec,
 };
@@ -17,20 +17,24 @@ pub struct Config {}
 impl Rule for Config {
     type Cache = NoCache;
 
+    fn level(&self) -> LintLevel {
+        LintLevel::Error
+    }
+
     fn run(
         &self,
-        _: RuleCache<Self::Cache>,
+        cache: RuleCache<Self::Cache>,
         spec: &Spec,
     ) -> Result<Vec<(LintItem, String, LintResult)>> {
         let mut results = vec![];
 
-        for (name, event) in spec.metrics.as_ref().unwrap_or(&HashMap::new()) {
-            if event.description.is_none() {
+        for name in spec.sources.as_ref().unwrap_or(&HashMap::new()).keys() {
+            if cache.common.sources.iter().filter(|s| *s == name).count() > 1 {
                 results.push((
-                    LintItem::Metric,
+                    LintItem::Source,
                     name.clone(),
                     LintResult {
-                        message: "description is missing".to_string(),
+                        message: "source name is duplicated".to_string(),
                     },
                 ));
             }
